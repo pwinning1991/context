@@ -3,6 +3,7 @@ package log
 import (
 	"context"
 	"log"
+	"math/rand"
 	"net/http"
 )
 
@@ -20,7 +21,7 @@ func Println(ctx context.Context, msg string) {
 	log.Printf("[%d] %s", id, msg)
 }
 
-func Decorate(f http.HandlerFunc) http.HandlerFun {
+func Decorate(f http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		ctx := r.Context()
 		id := rand.Int64()
