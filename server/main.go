@@ -1,10 +1,12 @@
 package main
 
 import (
+	"flag"
 	"fmt"
-	"github.com/pwinning1991/context/log"
 	"net/http"
 	"time"
+
+	"github.com/pwinning1991/context/log"
 )
 
 func main() {
