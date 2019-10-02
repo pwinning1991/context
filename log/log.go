@@ -3,6 +3,8 @@ package log
 import (
 	"context"
 	"log"
+	"net/http"
+	"rand"
 )
 
 const requestIDKey = 42
