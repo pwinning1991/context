@@ -2,27 +2,27 @@ package main
 
 import (
 	"fmt"
-	"log"
+	"github.com/pwinning1991/context/log"
 	"net/http"
 	"time"
 )
 
 func main() {
-	http.HandleFunc("/", handler)
+	http.HandleFunc("/", log.Decorate(handler))
 	log.Fatal(http.ListenAndServe("127.0.0.1:8080", nil))
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
-	log.Printf("handler started")
-	defer log.Printf("handler ended")
+	log.Println(ctx, "handler started")
+	defer log.Println(ctx, "handler ended")
 
 	select {
 	case <-time.After(5 * time.Second):
 		fmt.Fprintln(w, "hello")
 	case <-ctx.Done():
 		err := ctx.Err()
-		log.Print(err)
+		log.Println(ctx, err.Error())
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 
 	}
